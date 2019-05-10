@@ -1,0 +1,19 @@
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+
+<a href="{% url 'recipe_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus">yeni tarif</span></a>
+
+
+{% for recipe in recipes %}
+<div class="post">
+    <h1> {{recipe.id}} <a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.name }}</a></h1>
+    <p> User: {{ recipe.user }}</p>
+    <p> İngredients: {{ recipe.ingredients }}</p>
+    <p> Ayrıntı: {{ recipe.description }}</p>
+</div>
+{% endfor %}
