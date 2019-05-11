@@ -1,14 +1,19 @@
 {% extends 'odev/base.html' %}
 {% block content %}
-    <h1>{{ recipe.name }}</h1>
-    <p> User: {{ recipe.user }}</p>
-    <img src="{{ recipe.image.url }}" alt="image" width="100px" height="100px">
-    <p> Ingredients: {% for ingredient in recipe.ingredients.all %}
-    {{ ingredient }}
-    {% endfor %}</p>
-    <p> Ayrıntı: {{ recipe.description }}</p>
-    <p> Zorluk: {{ recipe.difficulty }}<p>
-    <p> Zaman: {{ recipe.time|linebreaksbr }}</p>
+    <div width="320" padding="10" border="5">
+        <h1>{{ recipe.name }}</h1>
+        <img src="{{ recipe.image.url }}" alt="image" width="200px" height="200px" >
+        <ul>
+            <p>Ingredients</p>
+            {% for ingredient in recipe.ingredients.all %}
+                <li> {{ ingredient }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <p> Description: <br>{{ recipe.description }}</p>
+    <p> Difficulty: {{ recipe.difficulty }}<p>
+    <p> Chef: {{ recipe.user }}</p>
+    <p> Published Time: {{ recipe.time }}</p>
 
     <a href="{% url 'recipe_list' %}">Geri</a>
     <a href="{% url 'recipe_edit' recipe.pk %}">edit</a>

@@ -1,0 +1,13 @@
+.all_blocks{
+    margin: 10px;
+}
+
+.box_list {
+    border: 3px solid gray;
+    padding-left: 5px;
+    margin: 5px;
+}
+
+.box_list h1 {
+    margin-left: 10px;
+}

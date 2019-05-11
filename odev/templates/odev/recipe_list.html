@@ -1,17 +1,19 @@
 
 {% extends 'odev/base.html' %}
 {% block content %}
-
-
-
-
-
-
     {% for recipe in recipes %}
-        {# Each "contact" is a Contact model object. #}
-        <h1> {{recipe.id}} <a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.name }}</a></h1>
-        <p> User: {{ recipe.user }}</p>
-        <p> Ayrıntı: {{ recipe.description }}</p>
+        <div class="box_list">
+            <a href="{% url 'recipe_detail' pk=recipe.pk %}"><h1>{{ recipe.name }}</h1></a>
+            <a href="{% url 'recipe_detail' pk=recipe.pk %}">
+            <img src="{{ recipe.image.url }}" alt="image" width="200px" height="200px"></a>
+            <center>
+                {% if user.is_authenticated %}
+                    <p> Difficulty: {{ recipe.difficulty }}, Chef: {{ recipe.user }} <a href="{% url 'recipe_edit' recipe.pk %}">edit</a> </p>
+                {% else %}
+                    <p> Difficulty: {{ recipe.difficulty }}, Chef: {{ recipe.user }} <a href="{% url 'recipe_detail' pk=recipe.pk %}" ><strong>show</strong></a></p>
+                {% endif %}
+            </center>
+        </div>
     {% endfor %}
 
     <div class="pagination">
