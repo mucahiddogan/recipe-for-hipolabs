@@ -1,3 +1,9 @@
+<form class="navbar" role="search" method="GET" action="">
+  <input class="form-control" type="text" name="q" placeholder="Search in recipes">
+  <input class="btn" type="submit" value="Ara">
+</form>
+
+
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">logout</a></p>
