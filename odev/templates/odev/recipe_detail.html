@@ -1,7 +1,7 @@
 <h1>{{ recipe.name }}</h1>
 <p> User: {{ recipe.user }}</p>
 <img src="{{ recipe.image.url }}" alt="image" width="100px" height="100px">
-<p> İngredients: {{ recipe.ingredients }}</p>
+<p> İngredients: {{ recipe.ingredients.all }}</p>
 <p> Ayrıntı: {{ recipe.description }}</p>
 <p> Zorluk: {{ recipe.difficulty }}<p>
 <p> Zaman: {{ recipe.time|linebreaksbr }}</p>

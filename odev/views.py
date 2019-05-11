@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import *
 
 from django.http import *
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
@@ -54,11 +56,50 @@ class RecipeListView(ListView):
 
 
 def recipe_list(request):
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.all().order_by('-time')
     query = request.GET.get('q')
     if query:
-        recipes = recipes.filter(description__icontains=query) 
+        # usernamess = User.objects.get(username=query)
+        # print(usernamess)
+        recipes = recipes.filter(
+        Q(name__icontains=query) |
+        Q(description__icontains=query) |
+        Q(difficulty__icontains=query)
+        )
+
+    paginator = Paginator(recipes, 5)
+    page = request.GET.get('page')
+    recipes = paginator.get_page(page)
+
+    try:
+        recipes = paginator.page(page)
+    except PageNotAnInteger:
+        recipes = paginator.page(1)
+    except EmptyPage:
+        recipes = paginator.page(paginator.num_pages)
+
+    context ={
+        "object_list": recipes,
+        "title": "List"
+    }
+        
+
+        
+
+    # recipes = Recipe.objects.all()
+    # query = request.GET.get('q')
+    # paginator = Paginator(recipes, 5)
+    # page = request.GET.get('page')
+    # recipes = paginator.get_page(page)
+
+    # if query:
+    #     recipes = recipes.filter(description__icontains=query) 
+
+    
     return render(request, 'odev/recipe_list.html', {'recipes' : recipes})
+
+
+
 
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)

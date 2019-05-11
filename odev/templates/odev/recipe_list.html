@@ -15,11 +15,39 @@
 <a href="{% url 'recipe_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus">yeni tarif</span></a>
 
 
+
+
 {% for recipe in recipes %}
+    {# Each "contact" is a Contact model object. #}
+    <h1> {{recipe.id}} <a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.name }}</a></h1>
+    <p> User: {{ recipe.user }}</p>
+    <p> Ayrıntı: {{ recipe.description }}</p>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if recipes.has_previous %}
+            <!-- <a href="?page=1">&laquo; first</a> -->
+            <a href="?page={{ recipes.previous_page_number }}&q={{ request.GET.q }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ recipes.number }} of {{ recipes.paginator.num_pages }}.
+        </span>
+
+        {% if recipes.has_next %}
+            <a href="?page={{ recipes.next_page_number }}&q={{ request.GET.q }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+
+
+<!-- {% for recipe in recipes %}
 <div class="post">
     <h1> {{recipe.id}} <a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.name }}</a></h1>
     <p> User: {{ recipe.user }}</p>
     <p> İngredients: {{ recipe.ingredients }}</p>
     <p> Ayrıntı: {{ recipe.description }}</p>
 </div>
-{% endfor %}
+{% endfor %} -->
