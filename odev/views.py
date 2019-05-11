@@ -72,7 +72,6 @@ def recipe_new(request):
 
 def logout_request(request):
     logout(request)
-    messages.info(request, 'Logged out successfully!')
     return redirect('/')
 
 
@@ -86,12 +85,12 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Hi! {username}")
                 return redirect('/')
             else:
-                messages.error(request, "Invalid username or password.")
+                form = AuthenticationForm()                
         else:
-            messages.error(request, "Invalid username or password.")
+            form = AuthenticationForm()
+
     form = AuthenticationForm()
     return render(request = request,
                     template_name = "registration/login.html",
