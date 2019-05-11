@@ -61,6 +61,7 @@ def recipe_new(request):
             post.user = request.user
             #post.published_date = timezone.now()
             post.save()
+            form.save_m2m()
             return redirect('/')
         else:
             form = RecipeForm()
@@ -104,7 +105,7 @@ def register(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
-            return redirect('/')
+            return redirect('login')
     else:
         form = NewUserForm()
     return render(request,'registration/register.html',{'form':form})

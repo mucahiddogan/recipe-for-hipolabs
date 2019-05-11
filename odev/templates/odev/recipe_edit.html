@@ -1,7 +1,10 @@
-<a href="{% url 'recipe_list' %}">main</a>
-<h1>Yeni Tarif</h1>
-    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_ul }}
-        <button type="submit" class="save btn btn-default">Kaydet</button>
-    </form><br>
+{% extends 'odev/base.html' %}
+{% block content %}
+
+    <h1>Yeni Tarif</h1>
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.as_ul }}
+            <button type="submit" class="save btn btn-default">Kaydet</button>
+        </form><br>
+{% endblock %}
 
