@@ -1,7 +1,13 @@
+<div class="go_main">
+    <a href="/">Main</a>
+</div>
+
 <form class="navbar" role="search" method="GET" action="">
   <input class="form-control" type="text" name="q" placeholder="Search in recipes">
   <input class="btn" type="submit" value="Ara">
 </form>
+
+
 
 
 {% if user.is_authenticated %}
@@ -10,7 +16,8 @@
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>
-{% endif %}
+  <a href="{% url 'register' %}"> register</a>
+{% endif %} 
 
 <a href="{% url 'recipe_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus">yeni tarif</span></a>
 

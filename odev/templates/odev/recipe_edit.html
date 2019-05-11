@@ -1,4 +1,4 @@
-<a href="{% url 'recipe_list' %}">liste</a>
+<a href="{% url 'recipe_list' %}">main</a>
 <h1>Yeni Tarif</h1>
     <form method="POST">{% csrf_token %}
         {{ form.as_ul }}

@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404,redirect
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Recipe, Ingredient, Like, User
-from .forms import RecipeForm
+from .forms import RecipeForm, NewUserForm
 
 from django.contrib.auth.forms import *
 from django.contrib.auth import *
@@ -12,47 +12,7 @@ from django.contrib.auth.decorators import *
 from django.http import *
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-
-
-
-class RecipeListView(ListView):
-
-    model = Recipe
-    paginate_by = 2  # if pagination is desired
-    template_name = '/'
-
-
-# class UserFormView(View):
-#     from_class = UserForm
-#     template_name = 'odev/registration/register.html'
-
-
-#     def get(self, request):
-#         form = self.form_class(request.POST)
-#         return render(request, self.template_name, {'form': form})
-
-#     def post(self, request):
-#         form = self.form_class(request.POST)
-
-#         if form.is_valid():
-
-#             user = form.save(commit=False)
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user.set_password(password)
-#             user.save()
-
-#             user = authenticate(username=username, password=password)
-
-#             if user is not None:
-#                 if user.is_active:
-#                     login(request, user)
-#                     return redirect('/')
-        
-        
-#         return render(request, self.template_name, {'form': form})
-
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 def recipe_list(request):
@@ -82,23 +42,8 @@ def recipe_list(request):
         "object_list": recipes,
         "title": "List"
     }
-        
-
-        
-
-    # recipes = Recipe.objects.all()
-    # query = request.GET.get('q')
-    # paginator = Paginator(recipes, 5)
-    # page = request.GET.get('page')
-    # recipes = paginator.get_page(page)
-
-    # if query:
-    #     recipes = recipes.filter(description__icontains=query) 
-
     
     return render(request, 'odev/recipe_list.html', {'recipes' : recipes})
-
-
 
 
 def recipe_detail(request, pk):
@@ -113,15 +58,55 @@ def recipe_new(request):
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            #post.user = request.user
+            post.user = request.user
             #post.published_date = timezone.now()
             post.save()
             return redirect('/')
         else:
+            messages.error(request, "Bir şeyler yanlış oldu")
 
-            print("asdasdad")   
     else:
         form = RecipeForm()
     return render(request, 'odev/recipe_edit.html', {'form': form})
 
 
+def logout_request(request):
+    logout(request)
+    messages.info(request, 'Logged out successfully!')
+    return redirect('/')
+
+
+
+def login_request(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"Hi! {username}")
+                return redirect('/')
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request = request,
+                    template_name = "registration/login.html",
+                    context={"form":form})
+
+
+def register(request):
+    form = NewUserForm()
+    if request.method == 'POST':
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('/')
+    else:
+        form = NewUserForm()
+    return render(request,'registration/register.html',{'form':form})
+    

@@ -9,11 +9,6 @@ DIFFICULTY = (
     ('HARD', _('Hard')),
 )
 
-# class User(models.Model):
-#     username = models.ForeignKey(User, on_delete=models.CASCADE)
-#     email = models.CharField(max_length=40)
-#     password = models.CharField(max_length=40)
-
 class Ingredient(models.Model):
     ingredient = models.CharField(max_length=40)
 
