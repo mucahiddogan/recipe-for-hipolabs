@@ -20,10 +20,10 @@ class NewUserForm(UserCreationForm):
 
 
 class RecipeForm(forms.ModelForm):
-
+    image = forms.ImageField()
     class Meta:
         model = Recipe
-        fields = ['name', 'description','image', 'difficulty', 'ingredients']
+        fields = ['name', 'description', 'image', 'difficulty', 'ingredients']
 
     #def __init__(self, *args, **kwargs):
      #   super(RecipeForm, self).__init__(*args, **kwargs)

@@ -63,7 +63,7 @@ def recipe_new(request):
             post.save()
             return redirect('/')
         else:
-            messages.error(request, "Bir şeyler yanlış oldu")
+            form = RecipeForm()
 
     else:
         form = RecipeForm()
