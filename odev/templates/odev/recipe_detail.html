@@ -11,5 +11,6 @@
     <p> Zaman: {{ recipe.time|linebreaksbr }}</p>
 
     <a href="{% url 'recipe_list' %}">Geri</a>
-    <a href="{% url 'recipe_list' %}">Düzenle</a>
-    {% endblock %}
+    <a href="{% url 'recipe_edit' recipe.pk %}">edit</a>
+    <a href="{% url 'recipe_delete' recipe.pk %}">delete</a>
+{% endblock %}

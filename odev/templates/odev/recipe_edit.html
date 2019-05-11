@@ -1,10 +1,10 @@
 {% extends 'odev/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-
-    <h1>Yeni Tarif</h1>
-        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-            {{ form.as_ul }}
-            <button type="submit" class="save btn btn-default">Kaydet</button>
-        </form><br>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Kaydet</button>
+    </form>
 {% endblock %}
 

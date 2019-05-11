@@ -1,9 +1,10 @@
 {% extends 'odev/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
     <div class="container">
         <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        {{form|crispy}}
             <button class="btn btn-outline-info" type="submit">Login</button>
         </form>
         Don't have an account? <a href="/registration/register" target="blank"><strong>register here</strong></a>!
