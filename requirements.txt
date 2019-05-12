@@ -2,3 +2,6 @@ Django~=2.0.6
 Pillow
 elasticsearch-dsl
 django-crispy-forms
+gunicorn
+django-heroku
+whitenoise
