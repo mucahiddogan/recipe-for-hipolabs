@@ -1,8 +1,16 @@
 {% extends 'odev/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<form method="post">{% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="Submit" />
-</form>
+{% if user.is_authenticated %}
+<a href="/ingredient/new"><button type="submit" class="btn btn-success">Add ingredient</button></a>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Submit" />
+    </form>
+    {% else %}
+        <p>You must login or register first</p>
+        <a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Register</a>
+        <a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+    {% endif %}
 {% endblock %}

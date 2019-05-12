@@ -61,7 +61,6 @@ def recipe_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
-            #post.published_date = timezone.now()
             post.save()
             form.save_m2m()
             return redirect('/')
@@ -72,25 +71,32 @@ def recipe_new(request):
         form = RecipeForm()
     return render(request, 'odev/recipe_edit.html', {'form': form})
 
-def ingredient_new(request):
-    form = IngredientForm()
-    if request.method == 'POST':
-        form = IngredientForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.save
-            return redirect('/')
-        else:
-            form = IngredientForm()
-    else:
-        form = RecipeForm()
-    return render(request, 'odev/ingredient_new.html', {'form': form})
+
+# def ingredient_new(request):
+#     form = IngredientForm()
+#     print("validoc")
+#     if request.method == "POST":
+#         form = IngredientForm(request.POST)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.save()
+#             return redirect('/')
+#         else:
+#             form = IngredientForm()
+#     else:
+#         form = IngredientForm()
         
+#     return render(request, 'odev/ingredient_new.html', {'form': form})
+        
+class IngredientNew(CreateView): 
+    model = Ingredient
+    fields = ['ingredient']
+    success_url = reverse_lazy('recipe_new')
 
 
 class RecipeUpdate(UpdateView): 
     model = Recipe
-    fields = ['name', 'description', 'image', 'difficulty', 'ingredients']
+    fields = ['ingredients', 'name', 'description', 'image', 'difficulty']
     success_url = reverse_lazy('recipe_list')
 
 class RecipeDelete(DeleteView):

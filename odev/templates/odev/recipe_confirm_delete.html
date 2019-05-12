@@ -1,7 +1,13 @@
 {% extends 'odev/base.html' %}
 {% block content %}
-<form method="post">{% csrf_token %}
-    Are you sure you want to delete "{{ object }}" ?
-    <input type="submit" value="Submit" />
-</form>
+{% if user.is_authenticated %}
+    <form method="post">{% csrf_token %}
+        Are you sure you want to delete "{{ object }}" ?
+        <input type="submit" value="Submit" />
+    </form>
+    {% else %}
+        <p>You must login or register first</p>
+        <a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Register</a>
+        <a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+    {% endif %}
 {% endblock %}

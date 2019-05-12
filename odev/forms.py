@@ -23,7 +23,7 @@ class RecipeForm(forms.ModelForm):
     image = forms.ImageField()
     class Meta:
         model = Recipe
-        fields = ['name', 'description', 'image', 'difficulty', 'ingredients']
+        fields = ['ingredients', 'name', 'description', 'image', 'difficulty']
 
 class IngredientForm():
     
