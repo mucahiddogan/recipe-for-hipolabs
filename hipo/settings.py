@@ -25,7 +25,7 @@ SECRET_KEY = '3u&0x)*9)pykyrsfo7d#tnk!^^8pjbz$bk6f5m)8!4-@18%jlf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.pythonanywhere.com', 'recipe-hipo.herokuapp.com']
 
 
 # Application definition

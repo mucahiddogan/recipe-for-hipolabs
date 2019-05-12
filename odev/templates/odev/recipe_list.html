@@ -15,11 +15,10 @@
             </center>
         </div>
     {% endfor %}
-
+    <center>
     <div class="pagination">
         <span class="step-links">
             {% if recipes.has_previous %}
-                <!-- <a href="?page=1">&laquo; first</a> -->
                 <a href="?page={{ recipes.previous_page_number }}&q={{ request.GET.q }}">previous</a>
             {% endif %}
 
@@ -32,5 +31,6 @@
             {% endif %}
         </span>
     </div>
+    </center>
 
 {% endblock %}
