@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404,redirect
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Recipe, Ingredient, Like, User
-from .forms import RecipeForm, NewUserForm
+from .forms import RecipeForm, NewUserForm, IngredientForm
 
 from django.contrib.auth.forms import *
 from django.contrib.auth import *
@@ -72,6 +72,21 @@ def recipe_new(request):
         form = RecipeForm()
     return render(request, 'odev/recipe_edit.html', {'form': form})
 
+def ingredient_new(request):
+    form = IngredientForm()
+    if request.method == 'POST':
+        form = IngredientForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save
+            return redirect('/')
+        else:
+            form = IngredientForm()
+    else:
+        form = RecipeForm()
+    return render(request, 'odev/ingredient_new.html', {'form': form})
+        
+
 
 class RecipeUpdate(UpdateView): 
     model = Recipe
@@ -81,24 +96,6 @@ class RecipeUpdate(UpdateView):
 class RecipeDelete(DeleteView):
     model = Recipe
     success_url = reverse_lazy('recipe_list')
-
-
-# def recipe_edit(request, pk):
-#     form = get_object_or_404(Recipe, pk=pk)
-#     if request.method == 'POST':
-#         form = RecipeForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.user = request.user
-#             post.save()
-#             form.save_m2m()
-#             return redirect('recipe_detail')
-#         else:
-#             form = RecipeForm()
-#     else:
-#         form = RecipeForm()
-#     return render(request, 'odev/recipe_edit_form.html', {'form': form})
-
 
 
 def logout_request(request):
@@ -139,4 +136,5 @@ def register(request):
     else:
         form = NewUserForm()
     return render(request,'registration/register.html',{'form':form})
+    
     

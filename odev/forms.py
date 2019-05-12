@@ -24,3 +24,9 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = ['name', 'description', 'image', 'difficulty', 'ingredients']
+
+class IngredientForm():
+    
+    class Meta:
+        model = Ingredient
+        fields = ['ingredient']

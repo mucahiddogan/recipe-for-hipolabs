@@ -1,21 +1,27 @@
 {% extends 'odev/base.html' %}
 {% block content %}
+
     <div width="320" padding="10" border="5">
         <h1>{{ recipe.name }}</h1>
-        <img src="{{ recipe.image.url }}" alt="image" width="200px" height="200px" >
+        <img class="detail_image" src="{{ recipe.image.url }}" alt="image" margin-bottom="40"><br><br>
+        <strong>Ingredients</strong>
         <ul>
-            <p>Ingredients</p>
             {% for ingredient in recipe.ingredients.all %}
                 <li> {{ ingredient }} </li>
             {% endfor %}
         </ul>
     </div>
-    <p> Description: <br>{{ recipe.description }}</p>
-    <p> Difficulty: {{ recipe.difficulty }}<p>
-    <p> Chef: {{ recipe.user }}</p>
-    <p> Published Time: {{ recipe.time }}</p>
+    <p> <strong>Description:</strong> <br>{{ recipe.description }}</p>
+    <p> <strong>Difficulty:</strong> {{ recipe.difficulty }}</p>
+    <p> <strong>Chef:</strong> {{ recipe.user }}</p>
+    <p> <strong>Published Time:</strong> {{ recipe.time }}</p>
+    <a href="." class="btn btn-default btn-sm btn-favorite" role="button">
+        <span class="glyphicon glyphicon-star {% if recipe.is_favorite %}active{% endif %}"></span>
+    </a>
 
-    <a href="{% url 'recipe_list' %}">Geri</a>
-    <a href="{% url 'recipe_edit' recipe.pk %}">edit</a>
-    <a href="{% url 'recipe_delete' recipe.pk %}">delete</a>
+    <!-- <a href="{% url 'recipe_list' %}">Geri</a> -->
+    {% if user.is_authenticated %}
+    <a href="{% url 'recipe_edit' recipe.pk %}"><button type="submit" class="btn btn-default">Edit</button></a>
+    <a href="{% url 'recipe_delete' recipe.pk %}"><button type="submit" class="btn btn-danger">Delete</button></a>
+    {% endif %}
 {% endblock %}

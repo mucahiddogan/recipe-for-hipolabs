@@ -4,3 +4,4 @@ elasticsearch-dsl
 django-crispy-forms
 gunicorn
 django-heroku
+django-generic-aggregation

@@ -9,11 +9,21 @@ DIFFICULTY = (
     ('HARD', _('Hard')),
 )
 
+Rating_CHOICES = (
+    (1, 'Poor'),
+    (2, 'Average'),
+    (3, 'Good'),
+    (4, 'Very Good'),
+    (5, 'Excellent')
+)
+
+
 class Ingredient(models.Model):
     ingredient = models.CharField(max_length=40)
 
     def __str__(self):
         return self.ingredient
+        
 
 
 class Recipe(models.Model):
@@ -25,6 +35,7 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(Ingredient)
     votes = models.ManyToManyField(User, related_name='upvoted_recipe')
     time = models.DateTimeField(auto_now_add=True)
+    is_favorite = models.IntegerField(choices=Rating_CHOICES, default=1)
 
     def __str__(self):
         return self.name
