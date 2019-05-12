@@ -44,7 +44,6 @@ def recipe_list(request):
         "object_list": recipes,
         "title": "List"
     }
-    
     return render(request, 'odev/recipe_list.html', {'recipes' : recipes})
 
 
@@ -71,23 +70,17 @@ def recipe_new(request):
         form = RecipeForm()
     return render(request, 'odev/recipe_edit.html', {'form': form})
 
+# class IngredientList(ListView):
+#     model = Ingredient
 
-# def ingredient_new(request):
-#     form = IngredientForm()
-#     print("validoc")
-#     if request.method == "POST":
-#         form = IngredientForm(request.POST)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.save()
-#             return redirect('/')
-#         else:
-#             form = IngredientForm()
-#     else:
-#         form = IngredientForm()
-        
-#     return render(request, 'odev/ingredient_new.html', {'form': form})
-        
+def ingredient_list(request, template_name='odev/ingredient_list.html'):
+    ingredient = Ingredient.objects.all()
+    data = {}
+    data['object_list'] = ingredient
+    return render(request, template_name, data)
+
+
+# classlar, fonksiyonlara göre daha rahat yazıldı
 class IngredientNew(CreateView): 
     model = Ingredient
     fields = ['ingredient']

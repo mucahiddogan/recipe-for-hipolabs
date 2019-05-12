@@ -5,8 +5,9 @@
 <a href="/ingredient/new"><button type="submit" class="btn btn-success">Add ingredient</button></a>
     <form method="POST">
         {% csrf_token %}
-        {{ form|crispy }}
-        <input type="submit" value="Submit" />
+        {{ form|crispy }}<br>
+        <button type="submit" class="btn btn-success">Share</button>
+        <a href="/"><button class="btn ">Cancel</button></a>
     </form>
     {% else %}
         <p>You must login or register first</p>

@@ -5,10 +5,10 @@
     {% if user.is_authenticated %}
         <form method="POST" enctype="multipart/form-data">
             <a href="/ingredient/new"><button type="submit" class="btn btn-success">Add ingredient</button></a>
-
             {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-success">Kaydet</button>
+            {{ form|crispy }}<br>
+            <button type="submit" class="btn btn-success">Share</button>
+            <a href="/"><button class="btn ">Cancel</button></a>
         </form>
         {% else %}
         <p>You must login or register first</p>

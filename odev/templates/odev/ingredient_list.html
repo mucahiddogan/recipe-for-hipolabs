@@ -1,0 +1,10 @@
+{% extends 'odev/base.html' %}
+{% block content %}
+<ul>
+{% for i in object_list %}
+<li> {{ i.id }}<a href="/">{{ i.ingredient }}</a></li>
+{{ i.ingredient.recipes.all }}
+{% endfor %}
+</ul>
+
+{% endblock %}

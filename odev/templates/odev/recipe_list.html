@@ -1,14 +1,19 @@
 
 {% extends 'odev/base.html' %}
 {% block content %}
+
     {% for recipe in recipes %}
+
         <div class="box_list">
             <a href="{% url 'recipe_detail' pk=recipe.pk %}"><h1>{{ recipe.name }}</h1></a>
             <a href="{% url 'recipe_detail' pk=recipe.pk %}">
-            <img class="list_image" src="{{ recipe.image.url }}" alt="image" ></a>
-            <center>
+            <img class="list_image" src="{{ recipe.image.url }}" alt="image" ></a><br><br>
+            <p class="my_p"> <strong>Description: </strong>
+                    {{ recipe.description }}
+            </p> 
+           
                 {% if user.is_authenticated %}
-                    <p> <strong>Difficulty:</strong> {{ recipe.difficulty }}, <strong>Chef:</strong> {{ recipe.user }} 
+                    <p> <strong>Difficulty:</strong> {{ recipe.difficulty }}, <strong>Chef:</strong> {{ recipe.user }} <br><br>
                         <a href="{% url 'recipe_detail' pk=recipe.pk %}" >
                             <button type="submit" class="btn btn-default">Show</button>
                         </a>
@@ -16,13 +21,16 @@
                             <button type="submit" class="btn btn-default">Edit</button>
                     </a> </p>
                 {% else %}
-                    <p> Difficulty: {{ recipe.difficulty }}, Chef: {{ recipe.user }} <a href="{% url 'recipe_detail' pk=recipe.pk %}" >
+                    <p> <strong>Difficulty:</strong> {{ recipe.difficulty }}, <strong>Chef:</strong> {{ recipe.user }}<br><br>
                             <button type="submit" class="btn btn-default">Show</button>
                     </a></p>
                 {% endif %}
-            </center>
+            
         </div>
     {% endfor %}
+    <a href="/ingredients">ingredients</a>
+
+
     <center>
     <div class="pagination">
         <span class="step-links">
@@ -40,5 +48,6 @@
         </span>
     </div>
     </center>
+
 
 {% endblock %}
